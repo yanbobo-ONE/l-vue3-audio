@@ -1,3 +1,12 @@
+<!--
+ * @Descripttion:
+ * @version:
+ * @Author: liuyanbobo
+ * @Date: 2024-03-29 10:17:11
+ * @LastEditors: liuyanbobo
+ * @LastEditTime: 2024-03-29 10:38:15
+-->
+
 # Vue 项目名称
 
 vue3-audio
@@ -37,6 +46,11 @@ color2:背景渐变颜色 默认 9cebb8
 ## 安装
 
 确保你已经安装了 Node.js 和 npm。
+
+```bash
+# 克隆项目
+git clone https://github.com/yanbobo-ONE/l-vue3-audio.git
+```
 
 ```bash
 npm i l-vue3-audio
