@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: liuyanbobo
+ * @Date: 2024-03-29 10:17:11
+ * @LastEditors: liuyanbobo
+ * @LastEditTime: 2024-03-29 15:11:10
+ */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // import path from 'path'
@@ -47,13 +55,15 @@ export default (mode, command) => {
       },
     },
     build: {
-      minify: 'esbuild',
-      sourcemap: true,
+      minify: 'esbuild',//boolean | 'terser' | 'esbuild'
+      sourcemap: true,//boolean | 'inline' | 'hidden' 默认： false;构建后是否生成 source map 文件
+      //库编译模式配置
       lib: {
-        entry: resolve(__dirname, 'src/index.js'),
-        name: 'l-vue3-audio',
-        fileName: (format) => `l-vue3-audio.${format}.js`,
+        entry: resolve(__dirname, 'src/index.js'), //指定组件编译入口文件,是必须的因为库不能使用 HTML 作为入口
+        name: 'l-vue3-audio',// 则是暴露的全局变量，在 formats 包含 'umd' 或 'iife' 时是必须的
+        fileName: (format) => `l-vue3-audio.${format}.js`,//是输出的包文件名
       },
+      // rollup打包配置
       rollupOptions: {
         // 确保外部化处理那些你不想打包进库的依赖
         external: ['vue'],

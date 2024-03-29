@@ -319,6 +319,7 @@ onUnmounted(() => {
   color: #fff;
   position: absolute;
   bottom: 1px;
+  display: block;
 }
 .advanceRetreat {
   font-size: 12px;
