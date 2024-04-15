@@ -73,7 +73,7 @@ export default {
 }
 </script>
 <script setup name='l-vue3-audio'>
-import { ref, onMounted, watch, onUnmounted, computed } from "vue";
+import { ref, onMounted, watch, onUnmounted, computed, nextTick } from "vue";
 const props = defineProps({
   audioUrl: String,        //试听的链接
   isPauseTtsAudio: Boolean,    //是否暂停播放试听
@@ -118,8 +118,10 @@ const GradientBg = computed(() => {
 });
 // 暂停
 function handleCloseMusic () {
-  audioRef.value.pause();
-  audioIsPlay.value = true;
+  nextTick(() => {
+    audioRef.value.pause();
+    audioIsPlay.value = true;
+  })
 }
 const handleGlobalClick = (event) => {
   if (!event.target.closest('.volume_icon')) {
