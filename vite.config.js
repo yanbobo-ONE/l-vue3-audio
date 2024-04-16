@@ -4,14 +4,12 @@
  * @Author: liuyanbobo
  * @Date: 2024-03-29 10:17:11
  * @LastEditors: liuyanbobo
- * @LastEditTime: 2024-03-29 15:11:10
+ * @LastEditTime: 2024-04-15 17:45:33
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // import path from 'path'
 import { resolve } from 'path'
-import dts from 'vite-plugin-dts'
-import viteCompression from 'vite-plugin-compression'
 // https://vitejs.dev/config/
 // export default defineConfig({
 //   plugins: [vue()],
@@ -39,15 +37,6 @@ export default (mode, command) => {
   return defineConfig({
     plugins: [
       vue(),
-      dts(),
-      viteCompression({
-        verbose: true,
-        disable: false, // 不禁用压缩
-        deleteOriginFile: false, // 压缩后是否删除原文件
-        threshold: 10240, // 压缩前最小文件大小
-        algorithm: 'gzip', // 压缩算法
-        ext: '.gz', // 文件类型
-      }),
     ],
     resolve: {
       alias: {

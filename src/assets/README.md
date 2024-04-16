@@ -4,7 +4,7 @@
  * @Author: liuyanbobo
  * @Date: 2024-03-29 10:17:11
  * @LastEditors: liuyanbobo
- * @LastEditTime: 2024-04-16 11:28:27
+ * @LastEditTime: 2024-03-29 10:38:51
 -->
 
 # Vue 项目名称
@@ -21,7 +21,6 @@ forwardSecond:快进速度 默认 10
 backSecond:快退速度 默认 3
 color1:背景渐变颜色从左往右 默认 9cafe8
 color2:背景渐变颜色 默认 9cebb8
-isinit:是否重置 audio 默认 fasle
 
 ## 参数
 
@@ -33,7 +32,6 @@ isinit:是否重置 audio 默认 fasle
         <td>快退速度</td>
         <td>背景渐变颜色从左往右1</td>
         <td>背景渐变颜色从左往右2</td>
-        <td>是否重置</td>
     </tr>
     <tr>
         <td>audio 的 url</td>
@@ -42,7 +40,6 @@ isinit:是否重置 audio 默认 fasle
         <td>默认 3</td>
         <td>默认 #9cafe8</td>
         <td>默认 #9cebb8</td>
-        <td>默认 fasle</td>
     </tr>
 </table>
 

@@ -75,8 +75,15 @@ export default {
 <script setup name='l-vue3-audio'>
 import { ref, onMounted, watch, onUnmounted, computed, nextTick } from "vue";
 const props = defineProps({
-  audioUrl: String,        //试听的链接
-  isPauseTtsAudio: Boolean,    //是否暂停播放试听
+  audioUrl: String,       //试听的链接
+  isPauseTtsAudio: {     //是否暂停播放试听            
+    type: Boolean,
+    default: true
+  },
+  isinit: {     //是否初始化       
+    type: Boolean,
+    default: false
+  },
   color1: {                //背景颜色
     type: String,
     default: '#9cafe8'
@@ -103,13 +110,24 @@ const audioVolume = ref(80); //音量的默认值是0.8
 const audioHuds = ref(false); //是否显示音量slider
 const audioRef = ref(null);
 const currentProgress = ref(0);
-
-
 watch(() => props.isPauseTtsAudio, (newVal, oldVal) => {
+  console.log(newVal)
   if (newVal) {
-    console.log(newVal)
     // 如果 isPauseTtsAudio 为 true，试听暂停
     handleCloseMusic();
+  } else {
+    setTimeout(() => {
+      audioIsPlay.value = false;
+      audioRef.value && audioRef.value.click() // 【主要代码 - 解决报错】先模拟与页面进行交互，防止报错
+      audioRef.value && audioRef.value.play() // 播放音频
+    }, 15)
+    // audioRef.value.play();
+  }
+}, { deep: true, immediate: true });
+watch(() => props.isinit, (newVal, oldVal) => {
+  console.log(newVal)
+  if (newVal) {
+    closeRendering()
   }
 }, { deep: true, immediate: true });
 //动态背景颜色
@@ -118,9 +136,17 @@ const GradientBg = computed(() => {
 });
 // 暂停
 function handleCloseMusic () {
+  setTimeout(() => {
+    audioRef.value.pause();
+    audioIsPlay.value = true;
+  }, 10)
+}
+//关闭重新渲染
+function closeRendering () {
   nextTick(() => {
     audioRef.value.pause();
     audioIsPlay.value = true;
+    audioRef.value.currentTime = 0;
   })
 }
 const handleGlobalClick = (event) => {
@@ -176,6 +202,8 @@ function playAudio () {
     audioIsPlay.value = true;
   }
 }
+
+
 // 根据当前播放时间，实时更新进度条
 function updateProgress (e) {
   var value = e.target.currentTime / e.target.duration;
@@ -221,6 +249,7 @@ const fastForward = () => {
     audioIsPlay.value = true;
   }
 }
+
 onUnmounted(() => {
   document.removeEventListener('click', handleGlobalClick);
 });
