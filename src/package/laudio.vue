@@ -130,6 +130,13 @@ watch(() => props.isinit, (newVal, oldVal) => {
     closeRendering()
   }
 }, { deep: true, immediate: true });
+watch(() => props.audioUrl, (newVal, oldVal) => {
+  if (newVal) {
+    nextTick(() => {
+      calculateDuration(newVal);
+    })
+  }
+}, { deep: true, immediate: true });
 //动态背景颜色
 const GradientBg = computed(() => {
   return `linear-gradient(to left, ${props.color1}, ${props.color2})`
@@ -156,14 +163,14 @@ const handleGlobalClick = (event) => {
   }
 };
 onMounted(() => {
-  calculateDuration();
+  // calculateDuration();
   document.addEventListener('click', handleGlobalClick);
 });
 // 获取音频时长
-function calculateDuration () {
+function calculateDuration (url) {
   var myVid = audioRef.value;
   myVid.loop = false;
-  myVid.src = props.audioUrl;
+  myVid.src = url;
   // 监听音频播放完毕
   myVid.addEventListener(
     "ended",
