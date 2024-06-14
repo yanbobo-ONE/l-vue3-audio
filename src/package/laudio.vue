@@ -73,6 +73,7 @@ export default {
 }
 </script>
 <script setup name='l-vue3-audio'>
+import { ElMessage } from 'element-plus'
 import { ref, onMounted, watch, onUnmounted, computed, nextTick } from "vue";
 const props = defineProps({
   audioUrl: String,       //试听的链接
@@ -109,6 +110,7 @@ const duration = ref(0); //音频的总时长
 const audioVolume = ref(80); //音量的默认值是0.8
 const audioHuds = ref(false); //是否显示音量slider
 const audioRef = ref(null);
+const isClickNot = ref(true)
 const currentProgress = ref(0);
 watch(() => props.isPauseTtsAudio, (newVal, oldVal) => {
   console.log(newVal)
@@ -171,6 +173,7 @@ function calculateDuration (url) {
   var myVid = audioRef.value;
   myVid.loop = false;
   myVid.src = url;
+  console.log(url)
   // 监听音频播放完毕
   myVid.addEventListener(
     "ended",
@@ -181,9 +184,15 @@ function calculateDuration (url) {
     false
   );
   if (myVid != null) {
+    console.log(1111111, myVid)
     myVid.oncanplay = function () {
       duration.value = myVid.duration; // 计算音频时长
       durationTime.value = transTime(myVid.duration); //换算成时间格式
+    };
+    myVid.onerror = function () {
+      console.log('失败')
+      durationTime.value = "0:00"
+      isClickNot.value = false
     };
     myVid.volume = 0.8; // 设置默认音量50%
     // 进入页面默认开始播放
@@ -201,12 +210,16 @@ function transTime (duration) {
 }
 // 播放暂停控制
 function playAudio () {
-  if (audioRef.value.paused) {
-    audioRef.value.play();
-    audioIsPlay.value = false;
+  if (isClickNot.value) {
+    if (audioRef.value.paused) {
+      audioRef.value.play();
+      audioIsPlay.value = false;
+    } else {
+      audioRef.value.pause();
+      audioIsPlay.value = true;
+    }
   } else {
-    audioRef.value.pause();
-    audioIsPlay.value = true;
+    ElMessage.error('播放失败！')
   }
 }
 
@@ -222,14 +235,19 @@ function updateProgress (e) {
 //调整播放进度
 const handleProgressChange = (val) => {
   console.log(val);
-  if (!val) {
-    return;
+  if (isClickNot.value) {
+    if (!val) {
+      return;
+    }
+    let currentTime = duration.value * (val / 100);
+    // 更新音频的当前播放时间
+    audioRef.value.currentTime = currentTime;
+    audioRef.value.pause();
+    audioIsPlay.value = true;
+  } else {
+    ElMessage.error('播放失败！')
   }
-  let currentTime = duration.value * (val / 100);
-  // 更新音频的当前播放时间
-  audioRef.value.currentTime = currentTime;
-  audioRef.value.pause();
-  audioIsPlay.value = true;
+
 };
 //调整音量
 const handleAudioVolume = (val) => {
@@ -242,18 +260,22 @@ const handleAudioVolume = (val) => {
 //快退
 const Fastrewind = () => {
   //当前时间
-  if (audioRef.value.currentTime > props.backSecond) {
+  if (audioRef.value.currentTime > props.backSecond && isClickNot.value) {
     audioRef.value.currentTime = audioRef.value.currentTime - props.backSecond
     audioRef.value.pause();
     audioIsPlay.value = true;
+  } else {
+    ElMessage.error('播放失败！')
   }
 }
 //快进
 const fastForward = () => {
-  if (audioRef.value.duration - audioRef.value.currentTime > props.forwardSecond) {
+  if (audioRef.value.duration - audioRef.value.currentTime > props.forwardSecond && isClickNot.value) {
     audioRef.value.currentTime = audioRef.value.currentTime + 10
     audioRef.value.pause();
     audioIsPlay.value = true;
+  } else {
+    ElMessage.error('播放失败！')
   }
 }
 

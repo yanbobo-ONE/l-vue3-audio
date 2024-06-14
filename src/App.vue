@@ -4,7 +4,7 @@
  * @Author: liuyanbobo
  * @Date: 2024-03-27 14:20:23
  * @LastEditors: liuyanbobo
- * @LastEditTime: 2024-06-14 14:49:50
+ * @LastEditTime: 2024-06-14 16:57:06
 -->
 
 <template>
@@ -38,6 +38,7 @@ const color2 = ref()
 const closeAudio = () => {
   // isPauseTtsAudio.value = true
   isinit.value = true
+  ttsAudioUrl.value = 'http://192.168.100.109:8081//upload//sampleFile//20240524//20240524180619343_2222.mp3'
 }
 </script>
 <style scoped>
