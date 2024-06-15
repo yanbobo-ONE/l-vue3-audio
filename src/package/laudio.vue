@@ -196,6 +196,8 @@ function calculateDuration (url) {
     // 进入页面默认开始播放
     // audioRef.value.play();
     // audioIsPlay.value = false;
+    audioRef.value.pause();
+    audioIsPlay.value = true;
   }
 }
 // 音频播放时间换算

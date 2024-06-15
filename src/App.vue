@@ -4,7 +4,7 @@
  * @Author: liuyanbobo
  * @Date: 2024-03-27 14:20:23
  * @LastEditors: liuyanbobo
- * @LastEditTime: 2024-06-15 09:53:38
+ * @LastEditTime: 2024-06-15 11:10:37
 -->
 
 <template>
@@ -37,8 +37,8 @@ const isinit = ref(false)
 const color1 = ref()
 const color2 = ref()
 const ChangeSongs = () => {
-  ttsAudioUrl.value = 'http://192.168.100.109:8081//upload//sampleFile//20240524//20240524180619343_2222.mp3'
-
+  // ttsAudioUrl.value = 'http://192.168.100.109:8081//upload//sampleFile//20240524//20240524180619343_2222.mp3'
+  ttsAudioUrl.value = 'http://music.163.com/song/media/outer/url?id=447925558.mp3'
 }
 const closeAudio = () => {
   // isPauseTtsAudio.value = true
