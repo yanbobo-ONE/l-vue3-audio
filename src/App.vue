@@ -4,7 +4,7 @@
  * @Author: liuyanbobo
  * @Date: 2024-03-27 14:20:23
  * @LastEditors: liuyanbobo
- * @LastEditTime: 2024-06-14 16:57:06
+ * @LastEditTime: 2024-06-15 09:53:38
 -->
 
 <template>
@@ -18,6 +18,7 @@
                   :color2="color2">
     </l-vue3-audio>
     <el-button @click="closeAudio">关闭audio</el-button>
+    <el-button @click="ChangeSongs">换歌</el-button>
   </div>
 </template>
 <script setup>
@@ -35,10 +36,13 @@ const backSecond = ref()
 const isinit = ref(false)
 const color1 = ref()
 const color2 = ref()
+const ChangeSongs = () => {
+  ttsAudioUrl.value = 'http://192.168.100.109:8081//upload//sampleFile//20240524//20240524180619343_2222.mp3'
+
+}
 const closeAudio = () => {
   // isPauseTtsAudio.value = true
   isinit.value = true
-  ttsAudioUrl.value = 'http://192.168.100.109:8081//upload//sampleFile//20240524//20240524180619343_2222.mp3'
 }
 </script>
 <style scoped>

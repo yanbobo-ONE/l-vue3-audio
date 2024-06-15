@@ -113,7 +113,6 @@ const audioRef = ref(null);
 const isClickNot = ref(true)
 const currentProgress = ref(0);
 watch(() => props.isPauseTtsAudio, (newVal, oldVal) => {
-  console.log(newVal)
   if (newVal) {
     // 如果 isPauseTtsAudio 为 true，试听暂停
     handleCloseMusic();
@@ -156,6 +155,7 @@ function closeRendering () {
     audioRef.value.pause();
     audioIsPlay.value = true;
     audioRef.value.currentTime = 0;
+    isClickNot.value = true
   })
 }
 const handleGlobalClick = (event) => {
@@ -173,7 +173,6 @@ function calculateDuration (url) {
   var myVid = audioRef.value;
   myVid.loop = false;
   myVid.src = url;
-  console.log(url)
   // 监听音频播放完毕
   myVid.addEventListener(
     "ended",
@@ -184,7 +183,6 @@ function calculateDuration (url) {
     false
   );
   if (myVid != null) {
-    console.log(1111111, myVid)
     myVid.oncanplay = function () {
       duration.value = myVid.duration; // 计算音频时长
       durationTime.value = transTime(myVid.duration); //换算成时间格式
@@ -210,6 +208,7 @@ function transTime (duration) {
 }
 // 播放暂停控制
 function playAudio () {
+  console.log(isClickNot.value)
   if (isClickNot.value) {
     if (audioRef.value.paused) {
       audioRef.value.play();
