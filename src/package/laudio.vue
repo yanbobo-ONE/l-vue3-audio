@@ -24,7 +24,7 @@
            class="audio_icon"
            src="../assets/images/play.png"
            alt="播放" />
-      <img v-if="!audioIsPlay&&!isAdvanceRe"
+      <img v-if="!audioIsPlay"
            @click="playAudio"
            class="audio_icon"
            src="../assets/images/pause.png"
