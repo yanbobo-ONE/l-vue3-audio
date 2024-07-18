@@ -12,25 +12,29 @@
     </audio>
     <div class="audio_right"
          :style="{background:GradientBg}">
-      <img class="audio_icon"
+      <img v-if="!isAdvanceRe"
+           class="audio_icon"
            src="../assets/images/Fastrewind.png"
            @click="Fastrewind"
            alt="快退" />
-      <span class="advanceRetreat">-{{backSecond}}s</span>
+      <span class="advanceRetreat"
+            v-if="!isAdvanceRe">-{{backSecond}}s</span>
       <img v-if="audioIsPlay"
            @click="playAudio"
            class="audio_icon"
            src="../assets/images/play.png"
            alt="播放" />
-      <img v-if="!audioIsPlay"
+      <img v-if="!audioIsPlay&&!isAdvanceRe"
            @click="playAudio"
            class="audio_icon"
            src="../assets/images/pause.png"
            alt="暂停" />
-      <span class="advanceRetreat">+{{forwardSecond}}s</span>
+      <span class="advanceRetreat"
+            v-if="!isAdvanceRe">+{{forwardSecond}}s</span>
       <img class="audio_icon"
            src="../assets/images/fastForward.png"
            @click="fastForward"
+           v-if="!isAdvanceRe"
            alt="快进" />
       <el-slider class="slider_box"
                  v-model="currentProgress"
@@ -80,6 +84,10 @@ const props = defineProps({
   isPauseTtsAudio: {     //是否暂停播放试听            
     type: Boolean,
     default: true
+  },
+  isAdvanceRe: {     //是否隐藏快进快退按钮         
+    type: Boolean,
+    default: false
   },
   isinit: {     //是否初始化       
     type: Boolean,

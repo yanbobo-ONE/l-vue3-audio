@@ -4,7 +4,7 @@
  * @Author: liuyanbobo
  * @Date: 2024-03-27 14:20:23
  * @LastEditors: liuyanbobo
- * @LastEditTime: 2024-06-15 11:10:37
+ * @LastEditTime: 2024-07-18 16:43:53
 -->
 
 <template>
@@ -14,6 +14,7 @@
                   :backSecond="backSecond"
                   :forwardSecond="forwardSecond"
                   :isinit="isinit"
+                  :isAdvanceRe="isAdvanceRe"
                   :color1="color1"
                   :color2="color2">
     </l-vue3-audio>
@@ -34,6 +35,7 @@ const isPauseTtsAudio = ref(true)
 const forwardSecond = ref()
 const backSecond = ref()
 const isinit = ref(false)
+const isAdvanceRe = ref(false)
 const color1 = ref()
 const color2 = ref()
 const ChangeSongs = () => {
